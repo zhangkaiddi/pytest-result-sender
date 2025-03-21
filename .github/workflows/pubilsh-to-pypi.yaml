@@ -13,9 +13,9 @@ jobs:
     name: Build and publish Python distributions to PyPI # 名字
     runs-on: ubuntu-latest # ubuntu环境,需要指定编译环境
     steps:
-      - uses: actions/checkout@v2 # 获取测试脚本
+      - uses: actions/checkout@v4.1.0  # 获取测试脚本
       - name: Set up Python 3.10 # 设置一个python3.10的环境
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: "3.10"
 
@@ -28,7 +28,7 @@ jobs:
 
       # 进行上传
       - name: Publish distribution to PyPI
-        if: startsWith(github.ref,'refs/tag')
-        uses: pypa/gh-action-pypi-publish@master
+        if: startsWith(github.ref, 'refs/tag')
+        uses: pypa/gh-action-pypi-publish@v1.8.0  # 使用具体版本号
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
