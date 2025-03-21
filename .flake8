@@ -1,0 +1,4 @@
+[flake8]
+max-line-length = 88
+ignore = ES01,E203,WS03
+exclude = .git,__pycache__,hypothesis,.pytest_cache,venv,.venv,build,dist
