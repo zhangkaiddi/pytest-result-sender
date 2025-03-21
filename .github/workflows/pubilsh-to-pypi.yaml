@@ -1,0 +1,36 @@
+# 发布脚本的名字
+name: Publish Python distributions to PyPI
+
+# 什么时候进行触发？ 在push的时候打上tags标记才会触发
+on:
+  push:
+    tags:
+      - '*'
+
+# 任务流程
+jobs:
+  build-publish:
+    name: Build and publish Python distributions to PyPI # 名字
+    runs-on: windows-latest # 使用 Windows 环境
+    steps:
+      - name: Checkout code # 获取代码
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.10 # 设置 Python 3.10 环境
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install pypa/build  # 安装必要的 build 工具
+        run: python -m pip install build
+
+      # 进行打包
+      - name: Build a binary wheel and a source tarball
+        run: python -m build --wheel --outdir dist/
+
+      # 进行上传
+      - name: Publish distribution to PyPI
+        if: startsWith(github.ref, 'refs/tag')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
