@@ -1,6 +1,6 @@
 [project]
-name = "pytest-result-sender"
-version = "0.1.7"
+name = "pytest-result-sender-misszhang"
+version = "0.1.8"
 description = "Default template for PDM package"
 authors = [
     {name = "Admin", email = "a1476088673@163.com"},
